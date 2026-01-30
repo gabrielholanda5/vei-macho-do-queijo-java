@@ -15,15 +15,16 @@ public class ProdutoService {
 		proximoId = 1;
 	}
 	
-	public void adicionarProduto(String nome, int quantidade, double preco) {
+	public boolean adicionarProduto(String nome, int quantidade, double preco) {
 		for(Produto p : produtos) {
 			if(p.getNome().equalsIgnoreCase(nome)) {
-				return;
+				return false;
 			}
 		}
 		
 		produtos.add(new Produto(proximoId,nome, quantidade, preco));
 		proximoId++;
+		return true;
 	}
 	
 	public List<Produto> listarProdutos() {
