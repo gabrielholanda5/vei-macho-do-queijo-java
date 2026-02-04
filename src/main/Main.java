@@ -28,17 +28,72 @@ public class Main {
 					Escolha uma opção: 
 					""");
 			
-			opcao = scanner.nextInt();
+			try {
+				opcao = Integer.parseInt(scanner.nextLine());
+			} catch (NumberFormatException e) {
+				System.out.println("Digite um numero");
+				continue;
+			}
+			
 			
 			if(opcao == 1) {
-				System.out.println("Produto: ");
-				String nome = scanner.next();
 				
-				System.out.println("Quantidade: ");
-				int quantidade = scanner.nextInt();
+				String nome;
+				int quantidade;
+				double preco;
 				
-				System.out.println("Preço: ");
-				double preco = scanner.nextDouble();
+				while(true) {
+					System.out.println("Produto: ");
+					nome = scanner.nextLine();
+					
+					if (nome.matches("[a-zA-Z]+")) {
+						break;
+					} else {
+						System.out.println("Digite apenas letras!");
+					}
+					
+				}
+				
+				
+				while(true) {
+					System.out.println("Quantidade: ");
+					
+					try {
+						quantidade = Integer.parseInt(scanner.nextLine());
+						
+						
+					} catch (NumberFormatException e) {
+						System.out.println("Digite apenas numeros!");
+						continue;
+					}
+					
+					if (quantidade <= 0) {
+						System.out.println("A quantidade tem que ser maior que 0");
+						continue;
+					}
+					
+					break;
+				}
+				
+				 
+				while(true) {
+					System.out.println("Preço: ");
+					
+					try {
+						preco = Double.parseDouble(scanner.nextLine());
+						
+					} catch (NumberFormatException e) {
+						System.out.println("Digite apenas numeros!");
+						continue;
+					}
+					
+					if(preco <= 0) {
+						System.out.println("O preco tem que ser maior do que 0");
+						continue;
+					}
+					
+					break;
+				}
 				
 				boolean adicionado = produtoService.adicionarProduto(nome, quantidade, preco);
 				
@@ -63,31 +118,103 @@ public class Main {
 			}
 			else if(opcao == 3) {
 				
-				System.out.println("Digite o ID do produto: ");
-				int id = scanner.nextInt();
+				int id;
+				String nome;
+				int quantidade;
+				double preco;
 				
-				System.out.println("Produto: ");
-				String nome = scanner.next();
+				while(true) {
+					
+					System.out.println("Digite o ID do produto: ");
 				
-				System.out.println("Quantidade: ");
-				int quantidade = scanner.nextInt();
+					try {
+						id = Integer.parseInt(scanner.nextLine());
+					} catch (NumberFormatException e) {
+						System.out.println("Digite um numero!");
+						continue;
+					}
+					
+					while(true) {
+						System.out.println("Produto: ");
+						nome = scanner.nextLine();
+					
+						if(nome.matches("[a-zA-Z]+")) {
+							break;
+						} else {
+							System.out.println("Digite apenas letras");
+						}
+					}
+					
 				
-				System.out.println("Preço: ");
-				double preco = scanner.nextDouble();
+					while(true) {
+						System.out.println("Quantidade: ");
+						
+					
+						try {
+							quantidade = Integer.parseInt(scanner.nextLine());
+						} catch (NumberFormatException e) {
+							System.out.println("Digite apenas numeros!");
+							continue;
+						}
+					
+						if(quantidade < 0) {
+							System.out.println("Quantidade nao pode ser negativa!");
+							continue;
+						}
+						
+						break;
+					}
+					
+					while(true) {
+						System.out.println("Preço: ");
+					
+					
+						try {
+							preco = Double.parseDouble(scanner.nextLine());
+							
+							
+						} catch (NumberFormatException e) {
+							System.out.println("Digite apenas numeros!");
+							continue;
+						}
+						
+						if(preco <= 0 ) {
+							System.out.println("O preco tem que ser maior que 0");
+							continue;
+						}
+						break;
+						
+					}
+					
 				
-				boolean atualizado = produtoService.atualizarProduto(id, nome, quantidade, preco);
+					boolean atualizado = produtoService.atualizarProduto(id, nome, quantidade, preco);
 				
-				if(atualizado) {
-					System.out.println("Produto atualizado");
-				} else {
-					System.out.println("Produto nao encontrado");
+					if(atualizado) {
+						System.out.println("Produto atualizado");
+						break;
+					} else {
+						System.out.println("Produto nao encontrado");
+						break;
+					}
 				}
 				
 			}
 			else if(opcao == 4) {
 				
-				System.out.println("Digite o ID do produto: ");
-				int id = scanner.nextInt();
+				int id;
+				
+				while(true) {
+					System.out.println("Digite o ID do produto: ");
+					
+					try {
+						id = Integer.parseInt(scanner.nextLine());
+						break;
+					} catch (NumberFormatException e) {
+						System.out.println("Digite um numero!");
+						continue;
+					}
+				}
+				
 				
 				boolean deletado = produtoService.deletarProduto(id);
 				
